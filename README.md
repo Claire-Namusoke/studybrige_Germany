@@ -1,14 +1,40 @@
 # StudyBridge Germany
 
-**StudyBridge Germany** is a full-stack web application developed to support the operations of an international student consultancy based in Germany.
+StudyBridge Germany is a full-stack platform for an international student consultancy based in Germany. It will bring the public website, student application portal, and business administration tools together.
 
-The project focuses on bringing client management, student application coordination and consultancy services into a single digital platform. It combines a public-facing business website with a personalised student portal and an administrative system designed to streamline workflows, centralise information and automate routine business processes.
+## Technology
 
-The platform is being developed with an emphasis on usability, data security, scalability and maintainability.
+- Python 3.11+
+- Django Templates and Bootstrap 5
+- Microsoft SQL Server with `mssql-django`
+- Git and GitHub
 
-### Core Technologies
-- Python & Django
-- Microsoft SQL Server
-- HTML, CSS & JavaScript
-- Bootstrap 5
-- Git & GitHub
+## Local development
+
+From the project directory, create and activate a virtual environment, then install the project dependencies:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
+
+Copy `.env.example` to `.env`, generate a unique `DJANGO_SECRET_KEY`, and fill in the SQL Server connection values. Do not commit `.env` or real credentials. The configured database backend uses the installed ODBC Driver 17 for SQL Server.
+
+Run Django's configuration checks with:
+
+```powershell
+python manage.py check
+```
+
+Database migrations require a running SQL Server and valid connection settings:
+
+```powershell
+python manage.py migrate
+```
+
+## Development phases
+
+1. Public website, services, enquiries, bookings, and editable content.
+2. Student accounts, applications, documents, and administration.
+3. AI chatbot, payments, messaging, multilingual support, and analytics.
