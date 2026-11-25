@@ -34,6 +34,32 @@ ALLOWED_HOSTS = [
     if host.strip()
 ]
 
+EMAIL_BACKEND = os.environ.get(
+    "EMAIL_BACKEND",
+    "django.core.mail.backends.console.EmailBackend",
+).strip()
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "").strip()
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "true").strip().lower() in {
+    "true",
+    "1",
+    "yes",
+    "on",
+}
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+EMAIL_TIMEOUT = int(os.environ.get("EMAIL_TIMEOUT", "10"))
+DEFAULT_FROM_EMAIL = os.environ.get(
+    "DEFAULT_FROM_EMAIL",
+    "StudyBridge Germany <no-reply@localhost>",
+).strip()
+BUSINESS_NOTIFICATION_EMAIL = os.environ.get("BUSINESS_NOTIFICATION_EMAIL", "").strip()
+
+if not DEBUG and EMAIL_BACKEND == "django.core.mail.backends.console.EmailBackend":
+    raise ImproperlyConfigured("Configure a real EMAIL_BACKEND when DJANGO_DEBUG is disabled.")
+if not DEBUG and not BUSINESS_NOTIFICATION_EMAIL:
+    raise ImproperlyConfigured("BUSINESS_NOTIFICATION_EMAIL must be configured for production.")
+
 
 # Application definition
 

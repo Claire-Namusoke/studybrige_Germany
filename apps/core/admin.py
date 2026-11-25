@@ -1,6 +1,14 @@
 from django.contrib import admin
 
-from apps.core.models import BlogPost, FAQ, Package, Service, Testimonial
+from apps.core.models import (
+    BlogPost,
+    ConsultationRequest,
+    Enquiry,
+    FAQ,
+    Package,
+    Service,
+    Testimonial,
+)
 
 
 @admin.register(Service)
@@ -58,3 +66,54 @@ class BlogPostAdmin(admin.ModelAdmin):
     search_fields = ("title", "excerpt", "body", "author")
     ordering = ("-published_at", "-created_at")
     readonly_fields = ("created_at", "updated_at")
+
+
+@admin.register(Enquiry)
+class EnquiryAdmin(admin.ModelAdmin):
+    list_display = ("reference", "full_name", "email", "service", "status", "created_at")
+    list_filter = ("status", "country", "created_at")
+    search_fields = ("reference", "full_name", "email", "phone", "message")
+    readonly_fields = (
+        "reference",
+        "privacy_consent",
+        "privacy_consent_at",
+        "created_at",
+        "updated_at",
+    )
+    date_hierarchy = "created_at"
+    fieldsets = (
+        ("Request", {"fields": ("reference", "status", "service", "message")}),
+        ("Contact details", {"fields": ("full_name", "email", "phone", "country")}),
+        ("Privacy", {"fields": ("privacy_consent", "privacy_consent_at")}),
+        ("Timestamps", {"fields": ("created_at", "updated_at")}),
+    )
+
+
+@admin.register(ConsultationRequest)
+class ConsultationRequestAdmin(admin.ModelAdmin):
+    list_display = (
+        "reference",
+        "full_name",
+        "email",
+        "preferred_date",
+        "preferred_time",
+        "status",
+        "created_at",
+    )
+    list_filter = ("status", "preferred_date", "country")
+    search_fields = ("reference", "full_name", "email", "phone", "message")
+    readonly_fields = (
+        "reference",
+        "privacy_consent",
+        "privacy_consent_at",
+        "created_at",
+        "updated_at",
+    )
+    date_hierarchy = "preferred_date"
+    fieldsets = (
+        ("Request", {"fields": ("reference", "status", "service", "message")}),
+        ("Preferred time", {"fields": ("preferred_date", "preferred_time", "scheduled_at")}),
+        ("Contact details", {"fields": ("full_name", "email", "phone", "country")}),
+        ("Privacy", {"fields": ("privacy_consent", "privacy_consent_at")}),
+        ("Timestamps", {"fields": ("created_at", "updated_at")}),
+    )

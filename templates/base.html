@@ -27,6 +27,7 @@
                 <a href="{% url 'core:package_list' %}">Packages</a>
                 <a href="{% url 'core:blog_list' %}">Resources</a>
                 <a href="{% url 'core:faq_list' %}">FAQs</a>
+                <a href="{% url 'core:enquiry' %}">Enquire</a>
             </div>
             <details class="mobile-nav d-lg-none">
                 <summary aria-label="Open navigation menu">Menu</summary>
@@ -36,11 +37,20 @@
                     <a href="{% url 'core:package_list' %}">Packages</a>
                     <a href="{% url 'core:blog_list' %}">Resources</a>
                     <a href="{% url 'core:faq_list' %}">FAQs</a>
+                    <a href="{% url 'core:enquiry' %}">Send an enquiry</a>
                 </div>
             </details>
-            <a class="button button--small d-none d-lg-inline-flex" href="{% url 'core:service_list' %}">Explore services</a>
+            <a class="button button--small d-none d-lg-inline-flex" href="{% url 'core:consultation' %}">Request a consultation</a>
         </nav>
     </header>
+
+    {% if messages %}
+        <div class="container site-messages" aria-live="polite">
+            {% for message in messages %}
+                <p class="site-message site-message--{{ message.tags }}" role="status">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <main id="main-content">
         {% block content %}{% endblock %}

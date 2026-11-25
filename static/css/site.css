@@ -806,6 +806,129 @@ p {
     font-size: 0.85rem;
 }
 
+.site-messages {
+    padding-top: 1rem;
+}
+
+.site-message {
+    margin: 0 0 0.7rem;
+    padding: 0.8rem 1rem;
+    border-left: 3px solid var(--color-muted-gold);
+    background: var(--color-ivory);
+    color: var(--color-charcoal);
+    font-size: 0.82rem;
+}
+
+.site-message--warning {
+    border-left-color: #8a4b18;
+}
+
+.site-message--error {
+    border-left-color: #9c2f2f;
+}
+
+.form-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(340px, 1fr);
+    gap: clamp(2.5rem, 8vw, 7rem);
+}
+
+.form-intro .page-intro {
+    margin-bottom: 1.5rem;
+}
+
+.form-notice {
+    max-width: 520px;
+    padding: 1rem 1.15rem;
+    border-left: 2px solid var(--color-muted-gold);
+    background: var(--color-white);
+    color: var(--color-muted);
+    font-size: 0.75rem;
+    line-height: 1.8;
+}
+
+.request-form {
+    display: grid;
+    gap: 1.15rem;
+    padding: clamp(1.3rem, 3vw, 2.2rem);
+    border: 1px solid rgba(37, 37, 37, 0.12);
+    background: var(--color-white);
+}
+
+.form-field label {
+    display: inline-block;
+    margin-bottom: 0.45rem;
+    color: var(--color-charcoal);
+    font-size: 0.76rem;
+    font-weight: 600;
+}
+
+.request-form .form-control,
+.request-form .form-select {
+    min-height: 47px;
+    border-color: #d7d3ca;
+    border-radius: 0;
+    color: var(--color-charcoal);
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+}
+
+.request-form textarea.form-control {
+    min-height: 125px;
+}
+
+.request-form .form-control:focus,
+.request-form .form-select:focus {
+    border-color: var(--color-muted-gold);
+    box-shadow: 0 0 0 0.2rem rgba(185, 154, 91, 0.18);
+}
+
+.form-help {
+    margin: 0.4rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.7rem;
+}
+
+.consent-field {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    align-items: start;
+    gap: 0.55rem;
+    color: var(--color-muted);
+    font-size: 0.74rem;
+    line-height: 1.65;
+}
+
+.consent-field label {
+    cursor: pointer;
+}
+
+.consent-field .form-check-input {
+    margin-top: 0.25rem;
+    border-color: #8f8b82;
+    border-radius: 2px;
+}
+
+.consent-field .form-check-input:checked {
+    border-color: var(--color-charcoal);
+    background-color: var(--color-charcoal);
+}
+
+.field-errors {
+    color: #8f2424;
+    font-size: 0.72rem;
+}
+
+.field-errors ul {
+    margin: 0.4rem 0 0;
+    padding-left: 1rem;
+}
+
+.request-form .button {
+    justify-self: start;
+    margin-top: 0.4rem;
+}
+
 .related-faqs {
     margin-top: 4rem;
 }
@@ -887,6 +1010,11 @@ p {
     .approach-grid {
         grid-template-columns: 1fr;
         gap: 2.5rem;
+    }
+
+    .form-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .footer-inner {

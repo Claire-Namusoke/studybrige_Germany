@@ -13,4 +13,6 @@ urlpatterns = [
     path("stories/", views.testimonial_list, name="testimonial_list"),
     path("resources/", views.blog_list, name="blog_list"),
     path("resources/<slug:slug>/", views.blog_detail, name="blog_detail"),
+    path("enquire/", views.enquiry_create, name="enquiry"),
+    path("consultation/", views.consultation_create, name="consultation"),
 ]

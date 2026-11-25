@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Request a Consultation | StudyBridge Germany{% endblock %}
+{% block meta_description %}Request a consultation with StudyBridge Germany to discuss your plans for studying in Germany.{% endblock %}
+
+{% block content %}
+<section class="content-page section-space">
+    <div class="container form-layout">
+        <div class="form-intro">
+            <p class="eyebrow"><span class="eyebrow__line"></span> A conversation about your plans</p>
+            <h1 class="page-title">Request a consultation.</h1>
+            <p class="page-intro">Tell us what you're looking for and suggest a date and time window. Our team will check availability and contact you to confirm.</p>
+            <p class="form-notice">Your requested date and time are preferences, not a confirmed appointment. Time windows use Germany local time (Europe/Berlin). Please do not include sensitive documents or account details.</p>
+        </div>
+        <form class="request-form" method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}<div class="field-errors">{{ form.non_field_errors }}</div>{% endif %}
+            {% include "core/_form_fields.html" %}
+            <button class="button" type="submit">Request a consultation <span aria-hidden="true">&rarr;</span></button>
+        </form>
+    </div>
+</section>
+{% endblock %}

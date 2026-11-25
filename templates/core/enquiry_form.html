@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Send an Enquiry | StudyBridge Germany{% endblock %}
+{% block meta_description %}Send StudyBridge Germany a question about studying and planning your next steps in Germany.{% endblock %}
+
+{% block content %}
+<section class="content-page section-space">
+    <div class="container form-layout">
+        <div class="form-intro">
+            <p class="eyebrow"><span class="eyebrow__line"></span> Start a conversation</p>
+            <h1 class="page-title">Tell us what you're planning.</h1>
+            <p class="page-intro">Share a few details and our team can understand how best to respond to your enquiry.</p>
+            <p class="form-notice">Please do not include passwords, payment details, or sensitive documents. We use these details to respond to this request.</p>
+        </div>
+        <form class="request-form" method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}<div class="field-errors">{{ form.non_field_errors }}</div>{% endif %}
+            {% include "core/_form_fields.html" %}
+            <button class="button" type="submit">Send enquiry <span aria-hidden="true">&rarr;</span></button>
+        </form>
+    </div>
+</section>
+{% endblock %}

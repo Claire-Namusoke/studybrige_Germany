@@ -1,0 +1,16 @@
+{% for field in form %}
+    {% if field.field.widget.input_type == "checkbox" %}
+        <div class="consent-field">
+            {{ field }}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {% if field.errors %}<div class="field-errors">{{ field.errors }}</div>{% endif %}
+        </div>
+    {% else %}
+        <div class="form-field{% if field.errors %} form-field--error{% endif %}">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}<p class="form-help">{{ field.help_text }}</p>{% endif %}
+            {% if field.errors %}<div class="field-errors">{{ field.errors }}</div>{% endif %}
+        </div>
+    {% endif %}
+{% endfor %}

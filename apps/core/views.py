@@ -1,8 +1,12 @@
+from django.conf import settings
+from django.contrib import messages
 from django.db.models import Prefetch
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
+from apps.core.forms import ConsultationRequestForm, EnquiryForm
 from apps.core.models import BlogPost, FAQ, Package, Service, Testimonial
+from apps.core.notifications import send_submission_notifications
 
 
 def _published_blog_posts():
@@ -86,3 +90,73 @@ def blog_detail(request, slug):
         slug=slug,
     )
     return render(request, "core/blog_detail.html", {"post": post})
+
+
+def _show_submission_result(request, submission, *, request_type):
+    confirmation_sent, admin_sent = send_submission_notifications(
+        submission,
+        request_type=request_type,
+    )
+
+    if settings.EMAIL_BACKEND == "django.core.mail.backends.console.EmailBackend":
+        messages.success(
+            request,
+            f"Your {request_type} request has been saved. Reference: {submission.reference}.",
+        )
+        messages.info(
+            request,
+            "Development mode: confirmation email output is written to the server console, not sent externally.",
+        )
+    elif confirmation_sent:
+        messages.success(
+            request,
+            f"Your {request_type} request has been saved and a confirmation email was sent. "
+            f"Reference: {submission.reference}.",
+        )
+    else:
+        messages.warning(
+            request,
+            f"Your {request_type} request was saved, but we could not send a confirmation email. "
+            f"Keep this reference: {submission.reference}.",
+        )
+
+    if not settings.BUSINESS_NOTIFICATION_EMAIL:
+        messages.warning(
+            request,
+            "The team notification address is not configured; the request is available in Django Admin.",
+        )
+    elif not admin_sent:
+        messages.warning(
+            request,
+            "The team notification email could not be sent; the request is available in Django Admin.",
+        )
+
+
+def enquiry_create(request):
+    if request.method == "POST":
+        form = EnquiryForm(request.POST)
+        if form.is_valid():
+            enquiry = form.save()
+            _show_submission_result(request, enquiry, request_type="enquiry")
+            return redirect("core:enquiry")
+    else:
+        form = EnquiryForm()
+
+    return render(request, "core/enquiry_form.html", {"form": form})
+
+
+def consultation_create(request):
+    if request.method == "POST":
+        form = ConsultationRequestForm(request.POST)
+        if form.is_valid():
+            consultation = form.save()
+            _show_submission_result(
+                request,
+                consultation,
+                request_type="consultation",
+            )
+            return redirect("core:consultation")
+    else:
+        form = ConsultationRequestForm()
+
+    return render(request, "core/consultation_form.html", {"form": form})

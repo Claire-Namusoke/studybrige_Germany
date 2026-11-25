@@ -39,6 +39,8 @@ The current local SQL Server instance is `SQLEXPRESS`. Before running database-b
 
 Services, packages, FAQs, testimonials, and journal posts are managed through Django Admin. A service, package, FAQ, or testimonial is public only after it is marked published. Testimonials also require confirmed consent before publication.
 
+Enquiries and consultation requests are saved in SQL Server and can be reviewed in Django Admin. Consultation requests remain pending until an administrator confirms an appointment. Local development uses Django's console email backend; messages are printed in the server terminal. Configure SMTP and `BUSINESS_NOTIFICATION_EMAIL` through environment variables before enabling production email.
+
 ## Development phases
 
 1. Public website, services, enquiries, bookings, and editable content.
