@@ -22,19 +22,23 @@
                 <span class="brand__location">GERMANY</span>
             </a>
             <div class="desktop-nav d-none d-lg-flex">
-                <a href="#about">Our story</a>
-                <a href="#services">Services</a>
-                <a href="#approach">Our approach</a>
+                <a href="{% url 'core:home' %}#about">Our story</a>
+                <a href="{% url 'core:service_list' %}">Services</a>
+                <a href="{% url 'core:package_list' %}">Packages</a>
+                <a href="{% url 'core:blog_list' %}">Resources</a>
+                <a href="{% url 'core:faq_list' %}">FAQs</a>
             </div>
             <details class="mobile-nav d-lg-none">
                 <summary aria-label="Open navigation menu">Menu</summary>
                 <div class="mobile-nav__panel">
-                    <a href="#about">Our story</a>
-                    <a href="#services">Services</a>
-                    <a href="#approach">Our approach</a>
+                    <a href="{% url 'core:home' %}#about">Our story</a>
+                    <a href="{% url 'core:service_list' %}">Services</a>
+                    <a href="{% url 'core:package_list' %}">Packages</a>
+                    <a href="{% url 'core:blog_list' %}">Resources</a>
+                    <a href="{% url 'core:faq_list' %}">FAQs</a>
                 </div>
             </details>
-            <a class="button button--small d-none d-lg-inline-flex" href="#services">Explore services</a>
+            <a class="button button--small d-none d-lg-inline-flex" href="{% url 'core:service_list' %}">Explore services</a>
         </nav>
     </header>
 

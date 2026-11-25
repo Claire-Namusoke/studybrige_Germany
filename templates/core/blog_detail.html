@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} | StudyBridge Germany{% endblock %}
+{% block meta_description %}{{ post.excerpt }}{% endblock %}
+
+{% block content %}
+<article class="content-page section-space">
+    <div class="container content-narrow">
+        <p class="eyebrow"><span class="eyebrow__line"></span> <a href="{% url 'core:blog_list' %}">Resources and journal</a></p>
+        <h1 class="page-title">{{ post.title }}</h1>
+        <p class="meta-label">{{ post.published_at|date:"F j, Y" }} &middot; {{ post.author }}</p>
+        <p class="page-intro">{{ post.excerpt }}</p>
+        <div class="rich-content">{{ post.body|linebreaks }}</div>
+    </div>
+</article>
+{% endblock %}

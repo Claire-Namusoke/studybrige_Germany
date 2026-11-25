@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Frequently Asked Questions | StudyBridge Germany{% endblock %}
+{% block meta_description %}Find answers to common questions about planning your study journey in Germany.{% endblock %}
+
+{% block content %}
+<section class="content-page section-space">
+    <div class="container content-narrow">
+        <p class="eyebrow"><span class="eyebrow__line"></span> Helpful answers</p>
+        <h1 class="page-title">Frequently asked questions</h1>
+        <p class="page-intro">Clear answers to help you understand the process and plan your next steps.</p>
+        {% for faq in faqs %}
+            <article class="faq-item">
+                <h2>{{ faq.question }}</h2>
+                {% if faq.service %}
+                    <p class="meta-label">{{ faq.service.title }}</p>
+                {% endif %}
+                <div class="rich-content">{{ faq.answer|linebreaks }}</div>
+            </article>
+        {% empty %}
+            <p class="content-empty">Answers are being prepared. Please check back soon.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Our Services | StudyBridge Germany{% endblock %}
+{% block meta_description %}Explore the study planning and application guidance services offered by StudyBridge Germany.{% endblock %}
+
+{% block content %}
+<section class="content-page section-space">
+    <div class="container">
+        <p class="eyebrow"><span class="eyebrow__line"></span> StudyBridge Germany</p>
+        <h1 class="page-title">Our services</h1>
+        <p class="page-intro">Explore the guidance available for planning your studies and next steps in Germany.</p>
+        <div class="row g-4 content-grid">
+            {% for service in services %}
+                <div class="col-md-6 col-lg-4">
+                    <article class="content-card">
+                        <p class="meta-label">Service {{ forloop.counter|stringformat:"02d" }}</p>
+                        <h2>{{ service.title }}</h2>
+                        <p>{{ service.summary }}</p>
+                        <a class="text-link" href="{% url 'core:service_detail' service.slug %}">Read about this service <span aria-hidden="true">&rarr;</span></a>
+                    </article>
+                </div>
+            {% empty %}
+                <div class="col-12"><p class="content-empty">Our service information is being prepared. Please check back soon.</p></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

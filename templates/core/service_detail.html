@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ service.title }} | StudyBridge Germany{% endblock %}
+{% block meta_description %}{{ service.summary }}{% endblock %}
+
+{% block content %}
+<article class="content-page section-space">
+    <div class="container content-narrow">
+        <p class="eyebrow"><span class="eyebrow__line"></span> <a href="{% url 'core:service_list' %}">Our services</a></p>
+        <h1 class="page-title">{{ service.title }}</h1>
+        <p class="page-intro">{{ service.summary }}</p>
+        <div class="rich-content">{{ service.description|linebreaks }}</div>
+        {% if related_faqs %}
+            <section class="related-faqs">
+                <h2>Common questions</h2>
+                {% for faq in related_faqs %}
+                    <article class="faq-item">
+                        <h3>{{ faq.question }}</h3>
+                        <div class="rich-content">{{ faq.answer|linebreaks }}</div>
+                    </article>
+                {% endfor %}
+            </section>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}

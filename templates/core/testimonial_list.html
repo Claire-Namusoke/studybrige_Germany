@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Student Stories | StudyBridge Germany{% endblock %}
+{% block meta_description %}Read experiences shared by students who have agreed to tell their StudyBridge Germany story.{% endblock %}
+
+{% block content %}
+<section class="content-page section-space">
+    <div class="container">
+        <p class="eyebrow"><span class="eyebrow__line"></span> Shared experiences</p>
+        <h1 class="page-title">Student stories</h1>
+        <p class="page-intro">Experiences shared by students with permission to publish.</p>
+        <div class="row g-4 content-grid">
+            {% for testimonial in testimonials %}
+                <div class="col-md-6">
+                    <figure class="content-card story-card">
+                        <blockquote>{{ testimonial.quote }}</blockquote>
+                        <figcaption>
+                            <span class="story-card__name">{{ testimonial.display_name }}</span>
+                            {% if testimonial.context %}<span class="story-card__context">{{ testimonial.context }}</span>{% endif %}
+                        </figcaption>
+                    </figure>
+                </div>
+            {% empty %}
+                <div class="col-12"><p class="content-empty">Student stories will appear here when they are ready to share.</p></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

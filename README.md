@@ -32,9 +32,12 @@ Database migrations require a running SQL Server and valid connection settings:
 
 ```powershell
 python manage.py migrate
+python manage.py createsuperuser
 ```
 
 The current local SQL Server instance is `SQLEXPRESS`. Before running database-backed features, set `DB_HOST=localhost\SQLEXPRESS`, leave `DB_PORT` blank, and configure the intended database name and authentication in `.env`.
+
+Services, packages, FAQs, testimonials, and journal posts are managed through Django Admin. A service, package, FAQ, or testimonial is public only after it is marked published. Testimonials also require confirmed consent before publication.
 
 ## Development phases
 

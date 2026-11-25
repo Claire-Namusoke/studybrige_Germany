@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Packages and Pricing | StudyBridge Germany{% endblock %}
+{% block meta_description %}Review the StudyBridge Germany support packages and pricing information.{% endblock %}
+
+{% block content %}
+<section class="content-page section-space">
+    <div class="container">
+        <p class="eyebrow"><span class="eyebrow__line"></span> Support options</p>
+        <h1 class="page-title">Packages and pricing</h1>
+        <p class="page-intro">Compare the available support options and choose what best fits your plans.</p>
+        <div class="row g-4 content-grid">
+            {% for package in packages %}
+                <div class="col-md-6 col-lg-4">
+                    <article class="content-card package-card">
+                        <p class="meta-label">StudyBridge package</p>
+                        <h2>{{ package.title }}</h2>
+                        <p>{{ package.summary }}</p>
+                        {% if package.price is not None %}
+                            <p class="package-price">{{ package.currency }} {{ package.price|floatformat:2 }}</p>
+                        {% else %}
+                            <p class="package-price">Pricing details available on request</p>
+                        {% endif %}
+                        {% if package.published_services %}
+                            <h3>Included guidance</h3>
+                            <ul class="package-services">
+                                {% for service in package.published_services %}
+                                    <li><a href="{% url 'core:service_detail' service.slug %}">{{ service.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </article>
+                </div>
+            {% empty %}
+                <div class="col-12"><p class="content-empty">Package information is being prepared. Please check back soon.</p></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
