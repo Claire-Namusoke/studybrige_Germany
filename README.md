@@ -25,6 +25,7 @@ Run Django's configuration checks with:
 
 ```powershell
 python manage.py check
+python manage.py runserver
 ```
 
 Database migrations require a running SQL Server and valid connection settings:
@@ -32,6 +33,8 @@ Database migrations require a running SQL Server and valid connection settings:
 ```powershell
 python manage.py migrate
 ```
+
+The current local SQL Server instance is `SQLEXPRESS`. Before running database-backed features, set `DB_HOST=localhost\SQLEXPRESS`, leave `DB_PORT` blank, and configure the intended database name and authentication in `.env`.
 
 ## Development phases
 
