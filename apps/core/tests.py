@@ -56,7 +56,67 @@ class PublicContentTests(TestCase):
         self.assertTemplateUsed(response, "base.html")
         self.assertContains(response, "StudyBridge Germany")
         self.assertContains(response, "Study planning")
+        self.assertNotContains(response, "University Admission")
         self.assertNotContains(response, "Draft service")
+
+    @override_settings(DEBUG=True)
+    def test_homepage_uses_marked_demo_services_when_none_are_published(self):
+        response = self.client.get(reverse("core:home"))
+
+        self.assertContains(response, "University Admission")
+        self.assertContains(response, "Settling in Germany")
+        self.assertContains(response, "DEMO CONTENT")
+
+    @override_settings(DEBUG=True)
+    def test_homepage_marks_sample_tracker_and_story_content_as_demo(self):
+        response = self.client.get(reverse("core:home"))
+
+        self.assertContains(response, "Sample progress only")
+        self.assertContains(response, "Demo stories")
+        self.assertContains(response, "Amanda K.")
+        self.assertContains(response, "Chat preview")
+        self.assertContains(
+            response,
+            '<details class="home-chat-preview" aria-label="Chat preview">',
+            html=False,
+        )
+        self.assertNotContains(
+            response,
+            '<details class="home-chat-preview" aria-label="Chat preview" open>',
+            html=False,
+        )
+
+    @override_settings(DEBUG=False)
+    def test_homepage_never_exposes_demo_content_outside_development(self):
+        response = self.client.get(reverse("core:home"))
+
+        self.assertNotContains(response, "500+ Students Supported")
+        self.assertNotContains(response, "DEMO CONTENT")
+        self.assertNotContains(response, "Amanda K.")
+        self.assertNotContains(response, "Sample progress only")
+        self.assertNotContains(response, "Chat preview")
+        self.assertNotContains(response, "SAMPLE COPY")
+        self.assertNotContains(response, "Expert knowledge of the German education system")
+        self.assertContains(response, "Start with a conversation.")
+
+    def test_homepage_shows_only_consented_published_testimonials(self):
+        Testimonial.objects.create(
+            display_name="Approved student",
+            quote="A real, approved experience.",
+            is_published=True,
+            consent_confirmed=True,
+        )
+        Testimonial.objects.create(
+            display_name="Unpublished student",
+            quote="This story is not public.",
+        )
+
+        response = self.client.get(reverse("core:home"))
+
+        self.assertContains(response, "Approved student")
+        self.assertContains(response, "A real, approved experience.")
+        self.assertNotContains(response, "Amanda K.")
+        self.assertNotContains(response, "Unpublished student")
 
     def test_published_service_has_a_public_detail_page(self):
         service = Service.objects.create(

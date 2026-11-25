@@ -17,12 +17,52 @@ def _published_blog_posts():
 
 
 def home(request):
+    show_demo_content = settings.DEBUG
+    services = list(Service.objects.filter(is_published=True)[:6])
+    if not services and show_demo_content:
+        services = [
+            {
+                "title": "University Admission",
+                "summary": "Get guidance on German universities.",
+                "is_demo": True,
+            },
+            {
+                "title": "Blocked Account",
+                "summary": "Secure your blocked account with ease.",
+                "is_demo": True,
+            },
+            {
+                "title": "Health Insurance",
+                "summary": "Find the right health insurance plan.",
+                "is_demo": True,
+            },
+            {
+                "title": "Accommodation",
+                "summary": "Discover safe and affordable housing.",
+                "is_demo": True,
+            },
+            {
+                "title": "Arrival Support",
+                "summary": "Get help before and after your arrival.",
+                "is_demo": True,
+            },
+            {
+                "title": "Settling in Germany",
+                "summary": "Enjoy a smooth transition into your new life.",
+                "is_demo": True,
+            },
+        ]
+
     return render(
         request,
         "core/home.html",
         {
-            "services": Service.objects.filter(is_published=True)[:3],
-            "recent_posts": _published_blog_posts()[:3],
+            "services": services,
+            "testimonials": Testimonial.objects.filter(
+                is_published=True,
+                consent_confirmed=True,
+            )[:3],
+            "show_demo_content": show_demo_content,
         },
     )
 
